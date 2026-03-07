@@ -65,6 +65,9 @@ const userSchema = new mongoose.Schema({
 }) // pre ka matlab hai ki, jab bhi hum user ka data save karne wale hai, to usse pehle ye function chalega, aur is function ke andar hum password ko hash karenge, taki hamare user ka password secure rahe.
 
 userSchema.methods.comparePassword = async function(password){
+
+    console.log(password, this.password)
+
     return await bcrypt.compare(password, this.password) // this.password is the hashed password that we have stored in the database, and password is the plain text password that user is giving us, and we are comparing them using bcrypt's compare function, which will return true if the passwords match, and false if they don't match.
 }
 
