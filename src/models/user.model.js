@@ -10,8 +10,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Email is required for creating a user"], // if user trues to create without email-> to error jayega message ke roop mai
         trim: true, // agar user email ke aage ya peeche space de deta hai to woh automatically remove ho jayega.
-        lowercaase: true, 
-        match: [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/,
+        lowercase: true, 
+        match: [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             "Invalid Email address" // if regex doesnt return true, then we will return this message as error.
         ],
         unique: [ true, "Email already exists."]
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
 
     name:{
         type: String,
-        required: [ true, " Name is required for an account"]
+        required: [ true, "Name is required for an account"]
     },
     password: {
         type: String,
@@ -54,8 +54,12 @@ const userSchema = new mongoose.Schema({
     const hash = await bcrypt.hash(this.password, 10) // this.password is the password that user has given us, and 10 is the number of rounds we want to use for hashing the password, the more rounds we use, the more secure our password will be, but it will also take more time to hash the password.
     this.password = hash // we are replacing the plain text password with the hashed password, so that our user's password is secure in the database.
 
-    return next() // after hashing the password, we will move to the next middleware or function.
-  
+    return  // after hashing the password, we will move to the next middleware or function.
+
+
+
+// we  an use next()- only when we are not using asynchronous function
+
 // password-----converted to hash------> then """""" saving hash as password in db """""", so that our user's password is secure in the database.
 
 }) // pre ka matlab hai ki, jab bhi hum user ka data save karne wale hai, to usse pehle ye function chalega, aur is function ke andar hum password ko hash karenge, taki hamare user ka password secure rahe.
